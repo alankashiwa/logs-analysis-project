@@ -29,4 +29,45 @@
 # (ex)
 # July 29, 2016 — 2.5% errors
 
-import psycopg2
+import psycopg2, bleach
+
+DBNAME = "news"
+
+def get_data(query):
+    db = psycopg2.connect(database=DBNAME)
+    c = db.cursor()
+    c.execute(query)
+    data = c.fetchall()
+    db.close()
+    return data
+
+def list_popular_articles():
+    query = """
+    select title, count(*) as num
+    from articles, log
+    where log.path like '%' || articles.slug
+    group by title
+    order by num desc
+    """
+    result = get_data(query)[:3]
+    print('The most popular three articles of all time:')
+    for record in result:
+        print('"{}" - {} views'.format(record[0], record[1]))
+
+def list_popular_authors():
+    query = """
+    select name, count(*) as num
+    from authors, articles, log
+    where authors.id = articles.author and log.path like '%' || articles.slug
+    group by name
+    order by num desc
+    """
+    result = get_data(query)[:3]
+    print('The most popular article authors of all time:')
+    for record in result:
+        print('{} - {} views'.format(record[0], record[1]))
+
+
+if __name__ == '__main__':
+    list_popular_articles()
+    list_popular_authors()
