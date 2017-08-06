@@ -50,7 +50,7 @@ def list_popular_articles():
     order by num desc
     """
     result = get_data(query)[:3]
-    print('The most popular three articles of all time:')
+    print('⋅The most popular three articles of all time:')
     for record in result:
         print('"{}" - {} views'.format(record[0], record[1]))
 
@@ -62,12 +62,46 @@ def list_popular_authors():
     group by name
     order by num desc
     """
-    result = get_data(query)[:3]
-    print('The most popular article authors of all time:')
+    result = get_data(query)
+    print('⋅The most popular article authors of all time:')
     for record in result:
         print('{} - {} views'.format(record[0], record[1]))
 
+def list_days_with_error(per):
+    view1 = """
+    create view daily_access as
+    select to_char(time, 'Month, DD, YYYY') as date, count(status) as access
+    from log
+    group by date
+    order by date
+    """
+    view2 = """
+    create view daily_error as
+    select to_char(time, 'Month, DD, YYYY') as date, count(status) as error
+    from log
+    where status like '4%'
+    group by date
+    order by date
+    """
+    view3 = """
+    create view error_rate as
+    select daily_access.date, round(100.00 * error / access, 2) as rate
+    from daily_access, daily_error
+    where daily_access.date = daily_error.date
+    """
+    query = 'select * from error_rate where rate >' + str(per);
+
+    result = get_data(query)
+    print('⋅Days with error rate above ' + str(per) + '%:')
+    for record in result:
+        print('{} - {}% errors'.format(record[0], record[1]))
 
 if __name__ == '__main__':
+    print('[Analysis Report]')
+    print('')
     list_popular_articles()
+    print('')
     list_popular_authors()
+    print('')
+    list_days_with_error(per=1)
+    print('')
