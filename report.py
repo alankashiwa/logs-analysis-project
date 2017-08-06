@@ -1,6 +1,4 @@
-# 1. What are the most popular three articles of all time ?
-# 2. Who are the most popular article authors of all time?
-# 3. On which days did more than 1% of requests lead to errors?
+#!/usr/bin/env python3
 
 import psycopg2
 
@@ -19,6 +17,7 @@ def get_data(query):
 
 def list_popular_articles():
     """ display the popular articles """
+    # 1. What are the most popular three articles of all time ?
     query = """
     select title, count(*) as num
     from articles, log
@@ -34,6 +33,7 @@ def list_popular_articles():
 
 def list_popular_authors():
     """ display the popular authors """
+    # 2. Who are the most popular article authors of all time?
     query = """
     select name, count(*) as num
     from authors, articles, log
@@ -49,6 +49,7 @@ def list_popular_authors():
 
 def list_days_with_error(per):
     """ display the days with error more than per% """
+    # 3. On which days did more than 1% of requests lead to errors?
     query = 'select * from error_rate where rate >' + str(per)
 
     result = get_data(query)
