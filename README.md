@@ -21,13 +21,14 @@ The report should answer the following questions:
 2. Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 3. Download and install [Vagrant](https://www.vagrantup.com/downloads.html)
 4. Fort or clone this [repository](https://github.com/udacity/fullstack-nanodegree-vm)
-5. Navigate to the /vagrant directory and run `vagrant up` to start the virtual machine
-6. Run `vagrant ssh` to log in the virtual machine
-7. Place the _report.py_ of this repo under the /vagrant directory
-8. Download the [database script](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip), unzip and place it under the /vagrant directory
+5. Place the _report.py_ of this repo under the /vagrant directory
+6. Download the [database script](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip), unzip and place it under the /vagrant directory
+7. Navigate to the /vagrant directory and run `vagrant up` to start the virtual machine
+8. Run `vagrant ssh` to log in the virtual machine
+
 
 # Create the database and views
-1. Run `psql -d news -f newsdata.sql` on the virtual machine to create the database
+1. Run `psql -d news -f newsdata.sql` on the virtual machine /vagrant folder to create the database
 2. Run the following code to create the necessary views:
 ```sql
 create view daily_access as
