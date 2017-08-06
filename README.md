@@ -23,7 +23,8 @@ The report should answer the following questions:
 4. Fort or clone this [repository](https://github.com/udacity/fullstack-nanodegree-vm)
 5. Navigate to the /vagrant directory and run `vagrant up` to start the virtual machine
 6. Run `vagrant ssh` to log in the virtual machine
-7. Place the _report.py_ and _newsdata.sql_ of this repo under the /vagrant directory
+7. Place the _report.py_ of this repo under the /vagrant directory
+8. Download the [database script](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip), unzip and place it under the /vagrant directory
 
 # Create the database and views
 1. Run `psql -d news -f newsdata.sql` on the virtual machine to create the database
