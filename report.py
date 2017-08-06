@@ -6,7 +6,7 @@ DBNAME = "news"
 
 
 def get_data(query):
-    """ fetch data from news database """
+    """ fetch data from database """
     db = psycopg2.connect(database=DBNAME)
     c = db.cursor()
     c.execute(query)
